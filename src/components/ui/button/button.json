@@ -1,0 +1,4603 @@
+{
+  "$schema": "https://uspec.design/schemas/component-contract-1.0.json",
+  "accessibility": {
+    "_deltaExtractions": [
+      {
+        "byteCount": 0,
+        "purpose": "Icon-only Size values (icon, icon-xs, icon-sm, icon-lg) of nested Button set 54:1996 were not walked (48 combos > cap 20); needed to confirm the label text layer is hidden and to name the icon layer in icon-only sizes.",
+        "script": null,
+        "timestamp": "2026-11-02T15:55:12.000Z",
+        "unavailable": "mcp-unavailable"
+      }
+    ],
+    "_dictionaryUnavailable": false,
+    "_extractionArtifacts": {
+      "booleanDefs": {},
+      "compSetNodeId": "46:2193",
+      "dictionaryMismatches": [],
+      "elementsSummary": [
+        {
+          "index": 1,
+          "isFocusStop": false,
+          "name": "Button",
+          "nodeType": "COMPONENT",
+          "visible": true
+        },
+        {
+          "index": 2,
+          "isFocusStop": true,
+          "name": "Button",
+          "nodeType": "INSTANCE",
+          "visible": true
+        }
+      ],
+      "focusStopsCount": 1,
+      "mergeAnalysis": [
+        {
+          "classification": "merged",
+          "into": "Button instance",
+          "notes": "Transparent wrapper with identical bounds; no semantics of its own.",
+          "part": "Button (COMPONENT 46:2193, wrapper)"
+        },
+        {
+          "classification": "focus-stop",
+          "layerName": "Button",
+          "notes": "The interactive button; the only focus stop.",
+          "part": "Button (INSTANCE 46:2187)"
+        },
+        {
+          "classification": "merged",
+          "into": "Button instance",
+          "notes": "Becomes the accessible name. Inner layer not in treeFlat; seen via textNodeHints.",
+          "part": "Label text (Label prop, value \"Button\")"
+        },
+        {
+          "classification": "decorative",
+          "notes": "Hidden from assistive tech when a visible label is present.",
+          "part": "Leading icon (Leading icon#54:49, default false)"
+        },
+        {
+          "classification": "decorative",
+          "notes": "Hidden from assistive tech when a visible label is present.",
+          "part": "Trailing icon (Trailing icon#54:98, default false)"
+        },
+        {
+          "classification": "merged",
+          "into": "Button instance",
+          "notes": "Glyph hidden; its meaning supplied as the button's explicit accessible name. Not measured (sub-component walk skipped).",
+          "part": "Icon glyph (icon-only sizes)"
+        }
+      ],
+      "slotDefsSummary": [],
+      "slotVisibility": {},
+      "stateDictionaryResolution": [
+        {
+          "resolution": "Baseline resting state. dictionary.states[] is empty (no runtime state props); grouped members resolve against dictionary axes variant, size (default/xs/sm/lg), leadingIcon, trailingIcon.",
+          "state": "enabled"
+        },
+        {
+          "resolution": "Resolves to canonical dictionary axis values size=icon, icon-xs, icon-sm, icon-lg.",
+          "state": "size='icon' / 'icon-xs' / 'icon-sm' / 'icon-lg'"
+        }
+      ],
+      "statesCount": 2,
+      "variantAxes": [],
+      "warnings": [
+        "Phase I skipped \"Button\" sub-component variant walk (48 combos > cap 20)."
+      ]
+    },
+    "componentName": "Button",
+    "guidelines": "- Single focus stop: the Button is one element. The visible label text and any leading/trailing icon merge into it; there is no focus order section because only one stop exists.\n- The outer COMPONENT \"Button\" (46:2193) is a transparent wrapper around the nested Button instance (46:2187); it carries no semantics of its own and must not add a second focusable layer.\n- Prefer native controls: SwiftUI Button / Material Button / HTML <button type=\"button\">. They provide role, focusability and activation (Enter/Space on web) without custom wiring.\n- The label describes the action, not the appearance. variant (default, outline, ghost, destructive, secondary, link) is purely visual; a destructive action must say so in its label text.\n- variant=link still renders a button. Use an anchor (<a href>, .isLink, link semantics) only when activation navigates to a URL.\n- leadingIcon / trailingIcon are decorative when a visible label is present: hide them (accessibilityHidden / contentDescription = null / aria-hidden=\"true\").\n- Icon-only sizes (icon, icon-xs, icon-sm, icon-lg) have no visible text: the label prop value must become the accessible name (accessibilityLabel / contentDescription / aria-label). An icon-only button without one is announced only as \"button\".\n- Icon-only targets must still meet minimum touch-target size (44x44pt iOS, 48x48dp Android, 24x24 CSS px WCAG 2.5.8); expand the hit area rather than the visual size if needed.\n- The Figma API exposes no disabled or loading props. If the implementation adds them, use the native disabled attribute / .notEnabled / disabled() and aria-busy respectively; they are not documented as states here.\n- Do not reorder focus across states; keep the stop index stable so user gestures remain predictable.\n- Do not stuff the accessible name with the hint, value, and error; each belongs on its dedicated property.\n- Platform parity: iOS merges via accessibilityElement(children: .combine), Android via mergeDescendants = true, Web via the button's text content; all three expose the same single stop.",
+    "states": [
+      {
+        "apiAssignment": {
+          "leadingIcon": [
+            "none",
+            "icon"
+          ],
+          "size": [
+            "default",
+            "xs",
+            "sm",
+            "lg"
+          ],
+          "trailingIcon": [
+            "none",
+            "icon"
+          ],
+          "variant": [
+            "default",
+            "outline",
+            "ghost",
+            "destructive",
+            "secondary",
+            "link"
+          ]
+        },
+        "description": "Labelled button (size = default / xs / sm / lg) across every variant value, with or without leadingIcon/trailingIcon. All of these share one focus stop, role and announcement pattern, so they are grouped. Only the default child (Variant=default, Size=default) was measured.",
+        "sections": [
+          {
+            "tables": [
+              {
+                "announcement": "\"Button, button\"",
+                "focusOrderIndex": 1,
+                "layerName": "Button",
+                "name": "Button",
+                "properties": [
+                  {
+                    "notes": "Visible Label text merges into the button as its spoken name; native SwiftUI Button derives it automatically.",
+                    "property": "accessibilityLabel",
+                    "value": "Button"
+                  },
+                  {
+                    "notes": "Announces the control as a button; inherited from native Button, add explicitly only on custom views.",
+                    "property": "accessibilityTraits",
+                    "value": ".isButton"
+                  },
+                  {
+                    "notes": "Leave empty; add a hint only when the result of activation is not obvious from the label.",
+                    "property": "accessibilityHint",
+                    "value": "–"
+                  },
+                  {
+                    "notes": "Label and any leading/trailing icon collapse into one element so the user lands on a single stop.",
+                    "property": "Merge",
+                    "value": "accessibilityElement(children: .combine)"
+                  },
+                  {
+                    "notes": "Icons enabled via leadingIcon/trailingIcon are decorative next to a visible label and are not spoken.",
+                    "property": "Leading / trailing icon",
+                    "value": ".accessibilityHidden(true)"
+                  },
+                  {
+                    "notes": "default/outline/ghost/destructive/secondary/link are visual only; convey destructive intent in the label text (e.g. \"Delete\"), not via styling.",
+                    "property": "variant",
+                    "value": "No semantic change"
+                  },
+                  {
+                    "notes": "Do not read the label twice. The label merges into the button's name; do not expose the text node as a separate element.",
+                    "property": "Do NOT",
+                    "value": "Duplicate label"
+                  },
+                  {
+                    "notes": "Do not announce the decorative icon. Mark it accessibilityHidden(true) so VoiceOver skips it.",
+                    "property": "Do NOT",
+                    "value": "Announce icons"
+                  }
+                ]
+              }
+            ],
+            "title": "VoiceOver (iOS)"
+          },
+          {
+            "tables": [
+              {
+                "announcement": "\"Button, button, double-tap to activate\"",
+                "focusOrderIndex": 1,
+                "layerName": "Button",
+                "name": "Button",
+                "properties": [
+                  {
+                    "notes": "Derived from the merged Text child; do not set a separate contentDescription that repeats the visible label.",
+                    "property": "contentDescription",
+                    "value": "Button"
+                  },
+                  {
+                    "notes": "Announces \"button\"; inherited from Material Button, set via semantics { role = Role.Button } on custom clickables.",
+                    "property": "role",
+                    "value": "Role.Button"
+                  },
+                  {
+                    "notes": "Label and icons merge into one focusable node; Material Button applies this by default.",
+                    "property": "Merge",
+                    "value": "mergeDescendants = true"
+                  },
+                  {
+                    "notes": "Decorative icons beside a visible label must be excluded from the announcement.",
+                    "property": "Leading / trailing icon",
+                    "value": "contentDescription = null"
+                  },
+                  {
+                    "notes": "TalkBack appends the activation hint automatically for clickable nodes.",
+                    "property": "Action",
+                    "value": "onClick → \"double-tap to activate\""
+                  },
+                  {
+                    "notes": "Do not read the label twice. The Text child merges into the button; do not make it independently focusable.",
+                    "property": "Do NOT",
+                    "value": "Duplicate label"
+                  },
+                  {
+                    "notes": "Do not announce the decorative icon. Set contentDescription = null / importantForAccessibility = no on the Icon.",
+                    "property": "Do NOT",
+                    "value": "Announce icons"
+                  }
+                ]
+              }
+            ],
+            "title": "TalkBack (Android)"
+          },
+          {
+            "tables": [
+              {
+                "announcement": "\"Button, button\"",
+                "focusOrderIndex": 1,
+                "layerName": "Button",
+                "name": "Button",
+                "properties": [
+                  {
+                    "notes": "Prefer the native element; it provides role, focusability and Enter/Space activation for free.",
+                    "property": "element",
+                    "value": "<button type=\"button\">"
+                  },
+                  {
+                    "notes": "Inherited from <button>; no explicit role attribute needed.",
+                    "property": "role",
+                    "value": "button (implicit)"
+                  },
+                  {
+                    "notes": "Visible Label text is the accessible name; no aria-label needed when the text is visible.",
+                    "property": "Accessible name",
+                    "value": "Button (text content)"
+                  },
+                  {
+                    "notes": "Inline SVG icons next to visible text are decorative; also set focusable=\"false\" on SVG.",
+                    "property": "Leading / trailing icon",
+                    "value": "aria-hidden=\"true\""
+                  },
+                  {
+                    "notes": "Native <button> activates on both keys; custom elements would need manual key handling.",
+                    "property": "Keyboard",
+                    "value": "Enter, Space"
+                  },
+                  {
+                    "notes": "The link variant is visual only; use <a href> only when activation navigates to a URL, otherwise keep <button>.",
+                    "property": "variant=link",
+                    "value": "<button> (or <a href> when it navigates)"
+                  },
+                  {
+                    "notes": "Do not replace the native <button> with a div/span plus role=\"button\"; it loses keyboard and focus behavior.",
+                    "property": "Do NOT",
+                    "value": "div role=\"button\""
+                  },
+                  {
+                    "notes": "Do not add an aria-label that repeats or diverges from the visible text; the visible label wins (WCAG 2.5.3).",
+                    "property": "Do NOT",
+                    "value": "Duplicate label"
+                  },
+                  {
+                    "notes": "Do not announce the decorative icon. Mark it aria-hidden=\"true\".",
+                    "property": "Do NOT",
+                    "value": "Announce icons"
+                  }
+                ]
+              }
+            ],
+            "title": "ARIA (Web)"
+          }
+        ],
+        "state": "enabled",
+        "variantProps": {}
+      },
+      {
+        "_previewNote": "The target COMPONENT 46:2193 exposes no variant axes; Size lives on the nested Button instance (set 54:1996). The preview needs the nested instance's Size set to an icon value, which variantProps cannot express. The icon-only child layer structure was not measured (sub-component walk skipped; delta unavailable).",
+        "apiAssignment": {
+          "size": [
+            "icon",
+            "icon-xs",
+            "icon-sm",
+            "icon-lg"
+          ],
+          "variant": [
+            "default",
+            "outline",
+            "ghost",
+            "destructive",
+            "secondary",
+            "link"
+          ]
+        },
+        "description": "Icon-only button. No visible label, so the accessible name must be supplied explicitly from the label prop. The four icon sizes are visually different but semantically identical, so they are grouped.",
+        "sections": [
+          {
+            "tables": [
+              {
+                "announcement": "\"Button, button\"",
+                "focusOrderIndex": 1,
+                "layerName": "Button",
+                "name": "Button",
+                "properties": [
+                  {
+                    "notes": "No visible text in icon sizes, so set the label explicitly from the Label prop value (default \"Button\"); describe the action, not the glyph.",
+                    "property": "accessibilityLabel",
+                    "value": "Button"
+                  },
+                  {
+                    "notes": "Same role as the labelled button; size does not change semantics.",
+                    "property": "accessibilityTraits",
+                    "value": ".isButton"
+                  },
+                  {
+                    "notes": "Add only when the icon's action is not self-evident from the label.",
+                    "property": "accessibilityHint",
+                    "value": "–"
+                  },
+                  {
+                    "notes": "The glyph itself is hidden; its meaning is carried by accessibilityLabel on the button.",
+                    "property": "Icon",
+                    "value": ".accessibilityHidden(true)"
+                  },
+                  {
+                    "notes": "Do not rely on the image name or SF Symbol name as the label; VoiceOver would read the asset name or just \"button\".",
+                    "property": "Do NOT",
+                    "value": "Unnamed button"
+                  },
+                  {
+                    "notes": "Do not expose the icon as a separate image element inside the button.",
+                    "property": "Do NOT",
+                    "value": "Announce icons"
+                  }
+                ]
+              }
+            ],
+            "title": "VoiceOver (iOS)"
+          },
+          {
+            "tables": [
+              {
+                "announcement": "\"Button, button, double-tap to activate\"",
+                "focusOrderIndex": 1,
+                "layerName": "Button",
+                "name": "Button",
+                "properties": [
+                  {
+                    "notes": "Set on the button (or the Icon inside a merged button) from the Label prop value; required because there is no visible text.",
+                    "property": "contentDescription",
+                    "value": "Button"
+                  },
+                  {
+                    "notes": "Same role as the labelled button.",
+                    "property": "role",
+                    "value": "Role.Button"
+                  },
+                  {
+                    "notes": "The icon and button remain one focus stop.",
+                    "property": "Merge",
+                    "value": "mergeDescendants = true"
+                  },
+                  {
+                    "notes": "Activation hint is appended automatically.",
+                    "property": "Action",
+                    "value": "onClick → \"double-tap to activate\""
+                  },
+                  {
+                    "notes": "Do not leave contentDescription null on both the IconButton and its Icon; TalkBack would announce only \"button\".",
+                    "property": "Do NOT",
+                    "value": "Unnamed button"
+                  },
+                  {
+                    "notes": "Do not give both the Icon and the button a description; the name must be spoken once.",
+                    "property": "Do NOT",
+                    "value": "Announce icons"
+                  }
+                ]
+              }
+            ],
+            "title": "TalkBack (Android)"
+          },
+          {
+            "tables": [
+              {
+                "announcement": "\"Button, button\"",
+                "focusOrderIndex": 1,
+                "layerName": "Button",
+                "name": "Button",
+                "properties": [
+                  {
+                    "notes": "Same native element as the labelled button.",
+                    "property": "element",
+                    "value": "<button type=\"button\">"
+                  },
+                  {
+                    "notes": "Required: icon sizes have no visible text, so the Label prop value becomes aria-label.",
+                    "property": "aria-label",
+                    "value": "Button"
+                  },
+                  {
+                    "notes": "Inherited from <button>.",
+                    "property": "role",
+                    "value": "button (implicit)"
+                  },
+                  {
+                    "notes": "The SVG glyph is hidden; its meaning lives in the button's aria-label.",
+                    "property": "Icon",
+                    "value": "aria-hidden=\"true\" focusable=\"false\""
+                  },
+                  {
+                    "notes": "Native <button> activation.",
+                    "property": "Keyboard",
+                    "value": "Enter, Space"
+                  },
+                  {
+                    "notes": "Do not rely on the SVG <title> or a tooltip/title attribute as the only name; set aria-label on the <button>.",
+                    "property": "Do NOT",
+                    "value": "Unnamed button"
+                  },
+                  {
+                    "notes": "Do not leave the SVG exposed; it would add a nameless graphic to the announcement.",
+                    "property": "Do NOT",
+                    "value": "Announce icons"
+                  }
+                ]
+              }
+            ],
+            "title": "ARIA (Web)"
+          }
+        ],
+        "state": "size='icon' / 'icon-xs' / 'icon-sm' / 'icon-lg'",
+        "variantProps": {}
+      }
+    ]
+  },
+  "anatomy": {
+    "composition": {
+      "ambiguousChildren": [],
+      "children": [
+        {
+          "booleanOverrides": {
+            "Leading icon#54:49": false,
+            "Trailing icon#54:98": false
+          },
+          "classification": "constitutive",
+          "classificationEvidence": [
+            "user-selected"
+          ],
+          "classificationReason": "Set by designer in the uSpec Extract plugin.",
+          "componentProperties": {
+            "Label": {
+              "type": "TEXT",
+              "value": "Button"
+            },
+            "Leading icon": {
+              "type": "BOOLEAN",
+              "value": false
+            },
+            "Size": {
+              "type": "VARIANT",
+              "value": "default"
+            },
+            "Trailing icon": {
+              "type": "BOOLEAN",
+              "value": false
+            },
+            "Variant": {
+              "type": "VARIANT",
+              "value": "default"
+            }
+          },
+          "defaultVariantPresent": true,
+          "mainComponentName": "Variant=default, Size=default",
+          "name": "Button",
+          "nodeType": "INSTANCE",
+          "origin": "top-level",
+          "parentSetName": "Button",
+          "placementCount": 1,
+          "placementIndices": [
+            0
+          ],
+          "placementsByVariant": {
+            "Button": {
+              "nodeIds": [
+                "46:2187"
+              ],
+              "placementIndices": [
+                0
+              ],
+              "variantId": "46:2193"
+            }
+          },
+          "placementsVary": false,
+          "presentInVariants": [
+            "Button"
+          ],
+          "slotName": null,
+          "subCompSetId": "54:1996",
+          "subCompVariantAxes": {
+            "Size": [
+              "default",
+              "xs",
+              "sm",
+              "lg",
+              "icon",
+              "icon-xs",
+              "icon-sm",
+              "icon-lg"
+            ],
+            "Variant": [
+              "default",
+              "outline",
+              "ghost",
+              "destructive",
+              "secondary",
+              "link"
+            ]
+          },
+          "topLevelInstanceId": "component:54:1996"
+        }
+      ],
+      "guessConfidence": "high"
+    },
+    "defaultTree": {
+      "children": [
+        {
+          "booleanOverrides": {
+            "Leading icon#54:49": false,
+            "Trailing icon#54:98": false
+          },
+          "children": [
+            {
+              "children": [
+                {
+                  "dimensions": {
+                    "cornerRadius": {
+                      "display": "0",
+                      "token": null,
+                      "value": 0
+                    },
+                    "height": {
+                      "display": "size/button/glyph/default (16)",
+                      "token": "size/button/glyph/default",
+                      "value": 16
+                    },
+                    "layoutSizingHorizontal": {
+                      "display": "FIXED",
+                      "token": null,
+                      "value": "FIXED"
+                    },
+                    "layoutSizingVertical": {
+                      "display": "FIXED",
+                      "token": null,
+                      "value": "FIXED"
+                    },
+                    "strokeAlign": {
+                      "display": "inside",
+                      "token": null,
+                      "value": "INSIDE"
+                    },
+                    "strokeWeight": {
+                      "display": "border-width/button/icon (1.5)",
+                      "token": "border-width/button/icon",
+                      "value": 1.5
+                    },
+                    "width": {
+                      "display": "size/button/glyph/default (16)",
+                      "token": "size/button/glyph/default",
+                      "value": 16
+                    }
+                  },
+                  "id": "I46:2187;54:1734",
+                  "name": "Glyph",
+                  "type": "VECTOR",
+                  "visible": true
+                }
+              ],
+              "dimensions": {
+                "clipsContent": {
+                  "display": "true",
+                  "token": null,
+                  "value": true
+                },
+                "cornerRadius": {
+                  "display": "0",
+                  "token": null,
+                  "value": 0
+                },
+                "counterAxisAlignItems": {
+                  "display": "CENTER",
+                  "token": null,
+                  "value": "CENTER"
+                },
+                "counterAxisSpacing": {
+                  "display": "0",
+                  "token": null,
+                  "value": 0
+                },
+                "height": {
+                  "display": "size/button/glyph/default (16)",
+                  "token": "size/button/glyph/default",
+                  "value": 16
+                },
+                "itemSpacing": {
+                  "display": "0",
+                  "token": null,
+                  "value": 0
+                },
+                "layoutMode": {
+                  "display": "HORIZONTAL",
+                  "token": null,
+                  "value": "HORIZONTAL"
+                },
+                "layoutSizingHorizontal": {
+                  "display": "FIXED",
+                  "token": null,
+                  "value": "FIXED"
+                },
+                "layoutSizingVertical": {
+                  "display": "FIXED",
+                  "token": null,
+                  "value": "FIXED"
+                },
+                "padding": {
+                  "display": "0",
+                  "token": null,
+                  "value": 0
+                },
+                "primaryAxisAlignItems": {
+                  "display": "CENTER",
+                  "token": null,
+                  "value": "CENTER"
+                },
+                "strokeAlign": {
+                  "display": "inside",
+                  "token": null,
+                  "value": "INSIDE"
+                },
+                "strokeWeight": {
+                  "display": "1",
+                  "token": null,
+                  "value": 1
+                },
+                "width": {
+                  "display": "size/button/glyph/default (16)",
+                  "token": "size/button/glyph/default",
+                  "value": 16
+                }
+              },
+              "id": "I46:2187;54:1733",
+              "name": "Leading icon",
+              "type": "FRAME",
+              "visible": false
+            },
+            {
+              "dimensions": {
+                "height": {
+                  "display": "20",
+                  "token": null,
+                  "value": 20
+                },
+                "layoutSizingHorizontal": {
+                  "display": "HUG",
+                  "token": null,
+                  "value": "HUG"
+                },
+                "layoutSizingVertical": {
+                  "display": "HUG",
+                  "token": null,
+                  "value": "HUG"
+                },
+                "strokeAlign": {
+                  "display": "inside",
+                  "token": null,
+                  "value": "INSIDE"
+                },
+                "strokeWeight": {
+                  "display": "1",
+                  "token": null,
+                  "value": 1
+                },
+                "width": {
+                  "display": "48",
+                  "token": null,
+                  "value": 48
+                }
+              },
+              "id": "I46:2187;54:1735",
+              "name": "Label",
+              "type": "TEXT",
+              "typography": {
+                "fontFamily": "Inter",
+                "fontSize": 15,
+                "fontWeight": "Medium",
+                "lineHeight": 20
+              },
+              "visible": true
+            },
+            {
+              "children": [
+                {
+                  "dimensions": {
+                    "cornerRadius": {
+                      "display": "0",
+                      "token": null,
+                      "value": 0
+                    },
+                    "height": {
+                      "display": "size/button/glyph/default (16)",
+                      "token": "size/button/glyph/default",
+                      "value": 16
+                    },
+                    "layoutSizingHorizontal": {
+                      "display": "FIXED",
+                      "token": null,
+                      "value": "FIXED"
+                    },
+                    "layoutSizingVertical": {
+                      "display": "FIXED",
+                      "token": null,
+                      "value": "FIXED"
+                    },
+                    "strokeAlign": {
+                      "display": "inside",
+                      "token": null,
+                      "value": "INSIDE"
+                    },
+                    "strokeWeight": {
+                      "display": "border-width/button/icon (1.5)",
+                      "token": "border-width/button/icon",
+                      "value": 1.5
+                    },
+                    "width": {
+                      "display": "size/button/glyph/default (16)",
+                      "token": "size/button/glyph/default",
+                      "value": 16
+                    }
+                  },
+                  "id": "I46:2187;54:1737",
+                  "name": "Glyph",
+                  "type": "VECTOR",
+                  "visible": true
+                }
+              ],
+              "dimensions": {
+                "clipsContent": {
+                  "display": "true",
+                  "token": null,
+                  "value": true
+                },
+                "cornerRadius": {
+                  "display": "0",
+                  "token": null,
+                  "value": 0
+                },
+                "counterAxisAlignItems": {
+                  "display": "CENTER",
+                  "token": null,
+                  "value": "CENTER"
+                },
+                "counterAxisSpacing": {
+                  "display": "0",
+                  "token": null,
+                  "value": 0
+                },
+                "height": {
+                  "display": "size/button/glyph/default (16)",
+                  "token": "size/button/glyph/default",
+                  "value": 16
+                },
+                "itemSpacing": {
+                  "display": "0",
+                  "token": null,
+                  "value": 0
+                },
+                "layoutMode": {
+                  "display": "HORIZONTAL",
+                  "token": null,
+                  "value": "HORIZONTAL"
+                },
+                "layoutSizingHorizontal": {
+                  "display": "FIXED",
+                  "token": null,
+                  "value": "FIXED"
+                },
+                "layoutSizingVertical": {
+                  "display": "FIXED",
+                  "token": null,
+                  "value": "FIXED"
+                },
+                "padding": {
+                  "display": "0",
+                  "token": null,
+                  "value": 0
+                },
+                "primaryAxisAlignItems": {
+                  "display": "CENTER",
+                  "token": null,
+                  "value": "CENTER"
+                },
+                "strokeAlign": {
+                  "display": "inside",
+                  "token": null,
+                  "value": "INSIDE"
+                },
+                "strokeWeight": {
+                  "display": "1",
+                  "token": null,
+                  "value": 1
+                },
+                "width": {
+                  "display": "size/button/glyph/default (16)",
+                  "token": "size/button/glyph/default",
+                  "value": 16
+                }
+              },
+              "id": "I46:2187;54:1736",
+              "name": "Trailing icon",
+              "type": "FRAME",
+              "visible": false
+            }
+          ],
+          "componentProperties": {
+            "Label": {
+              "type": "TEXT",
+              "value": "Button"
+            },
+            "Leading icon": {
+              "type": "BOOLEAN",
+              "value": false
+            },
+            "Size": {
+              "type": "VARIANT",
+              "value": "default"
+            },
+            "Trailing icon": {
+              "type": "BOOLEAN",
+              "value": false
+            },
+            "Variant": {
+              "type": "VARIANT",
+              "value": "default"
+            }
+          },
+          "dimensions": {
+            "clipsContent": {
+              "display": "true",
+              "token": null,
+              "value": true
+            },
+            "cornerRadius": {
+              "display": "8",
+              "token": null,
+              "value": 8
+            },
+            "counterAxisAlignItems": {
+              "display": "CENTER",
+              "token": null,
+              "value": "CENTER"
+            },
+            "counterAxisSpacing": {
+              "display": "0",
+              "token": null,
+              "value": 0
+            },
+            "height": {
+              "display": "48",
+              "token": null,
+              "value": 48
+            },
+            "itemSpacing": {
+              "display": "spacing/button/gap (20)",
+              "token": "spacing/button/gap",
+              "value": 20
+            },
+            "layoutMode": {
+              "display": "HORIZONTAL",
+              "token": null,
+              "value": "HORIZONTAL"
+            },
+            "layoutSizingHorizontal": {
+              "display": "HUG",
+              "token": null,
+              "value": "HUG"
+            },
+            "layoutSizingVertical": {
+              "display": "HUG",
+              "token": null,
+              "value": "HUG"
+            },
+            "padding": {
+              "horizontal": {
+                "display": "spacing/button/padding-x (20)",
+                "token": "spacing/button/padding-x",
+                "value": 20
+              },
+              "vertical": {
+                "display": "spacing/button/padding-y (14)",
+                "token": "spacing/button/padding-y",
+                "value": 14
+              }
+            },
+            "primaryAxisAlignItems": {
+              "display": "CENTER",
+              "token": null,
+              "value": "CENTER"
+            },
+            "strokeAlign": {
+              "display": "inside",
+              "token": null,
+              "value": "INSIDE"
+            },
+            "strokeWeight": {
+              "display": "0",
+              "token": null,
+              "value": 0
+            },
+            "width": {
+              "display": "88",
+              "token": null,
+              "value": 88
+            }
+          },
+          "id": "46:2187",
+          "mainComponentName": "Variant=default, Size=default",
+          "name": "Button",
+          "parentSetName": "Button",
+          "subCompSetId": "54:1996",
+          "subCompVariantAxes": {
+            "Size": [
+              "default",
+              "xs",
+              "sm",
+              "lg",
+              "icon",
+              "icon-xs",
+              "icon-sm",
+              "icon-lg"
+            ],
+            "Variant": [
+              "default",
+              "outline",
+              "ghost",
+              "destructive",
+              "secondary",
+              "link"
+            ]
+          },
+          "type": "INSTANCE",
+          "visible": true
+        }
+      ],
+      "dimensions": {
+        "clipsContent": {
+          "display": "false",
+          "token": null,
+          "value": false
+        },
+        "cornerRadius": {
+          "display": "0",
+          "token": null,
+          "value": 0
+        },
+        "counterAxisAlignItems": {
+          "display": "MIN",
+          "token": null,
+          "value": "MIN"
+        },
+        "counterAxisSpacing": {
+          "display": "0",
+          "token": null,
+          "value": 0
+        },
+        "height": {
+          "display": "48",
+          "token": null,
+          "value": 48
+        },
+        "itemSpacing": {
+          "display": "0",
+          "token": null,
+          "value": 0
+        },
+        "layoutMode": {
+          "display": "HORIZONTAL",
+          "token": null,
+          "value": "HORIZONTAL"
+        },
+        "layoutSizingHorizontal": {
+          "display": "HUG",
+          "token": null,
+          "value": "HUG"
+        },
+        "layoutSizingVertical": {
+          "display": "HUG",
+          "token": null,
+          "value": "HUG"
+        },
+        "padding": {
+          "display": "0",
+          "token": null,
+          "value": 0
+        },
+        "primaryAxisAlignItems": {
+          "display": "MIN",
+          "token": null,
+          "value": "MIN"
+        },
+        "strokeAlign": {
+          "display": "inside",
+          "token": null,
+          "value": "INSIDE"
+        },
+        "strokeWeight": {
+          "display": "1",
+          "token": null,
+          "value": 1
+        },
+        "width": {
+          "display": "88",
+          "token": null,
+          "value": 88
+        }
+      },
+      "id": "46:2193",
+      "name": "Button",
+      "type": "COMPONENT",
+      "visible": true
+    },
+    "subcomponents": {
+      "54:1996": {
+        "axes": {
+          "Size": [
+            "default",
+            "xs",
+            "sm",
+            "lg",
+            "icon",
+            "icon-xs",
+            "icon-sm",
+            "icon-lg"
+          ],
+          "Variant": [
+            "default",
+            "outline",
+            "ghost",
+            "destructive",
+            "secondary",
+            "link"
+          ]
+        },
+        "classification": "constitutive",
+        "name": "Button",
+        "skipped": true,
+        "skippedReason": "cross-product 48 exceeds cap 20",
+        "subCompSetId": "54:1996",
+        "subCompSetName": "Button",
+        "variants": []
+      }
+    }
+  },
+  "api": {
+    "_deltaExtractions": [],
+    "_extractionArtifacts": {
+      "booleanRelationshipAnalysis": [
+        {
+          "apiDecision": "kept-separate",
+          "apiShape": null,
+          "booleansConsidered": [
+            "Leading icon#54:49",
+            "Trailing icon#54:98"
+          ],
+          "evidence": [
+            {
+              "note": "No substring containment: 'Leading icon' and 'Trailing icon' are positional siblings, neither prefixes the other; no master boolean.",
+              "source": "naming"
+            },
+            {
+              "note": "'Leading icon' (I46:2187;54:1733) and 'Trailing icon' (I46:2187;54:1736) are sibling FRAMEs either side of 'Label'; no shared wrapper.",
+              "source": "treeHierarchical"
+            },
+            {
+              "note": "Each boolean gates its own sibling layer; neither layer is nested in the other, so any on/off combination is a valid state.",
+              "source": "associatedLayer"
+            }
+          ],
+          "relationship": "orthogonal",
+          "subComponentName": "Button"
+        }
+      ],
+      "overridePromotion": [
+        {
+          "decision": "promoted",
+          "override": "Variant",
+          "reason": "Child is the parent's only element; visual style is the parent contract."
+        },
+        {
+          "decision": "promoted",
+          "override": "Size",
+          "reason": "Child is the parent's only element; size is the parent contract."
+        },
+        {
+          "decision": "promoted",
+          "override": "Label",
+          "reason": "Text content is set by consumers of the parent."
+        },
+        {
+          "decision": "promoted",
+          "override": "Leading icon",
+          "reason": "Changes the parent's visible content; exposed as leadingIcon enum with none off-state."
+        },
+        {
+          "decision": "promoted",
+          "override": "Trailing icon",
+          "reason": "Changes the parent's visible content; exposed as trailingIcon enum with none off-state."
+        }
+      ],
+      "slotResolverStrategy": [],
+      "stateAxisMapping": []
+    },
+    "componentName": "Button",
+    "configurationExamples": [
+      {
+        "properties": [
+          {
+            "notes": "–",
+            "property": "label",
+            "value": "\"Save changes\""
+          },
+          {
+            "notes": "Main call to action",
+            "property": "variant",
+            "value": "default"
+          }
+        ],
+        "textOverrides": {
+          "Label": "Save changes"
+        },
+        "title": "Example 1 — Primary button",
+        "variantProperties": {
+          "Leading icon#54:49": false,
+          "Size": "default",
+          "Trailing icon#54:98": false,
+          "Variant": "default"
+        }
+      },
+      {
+        "properties": [
+          {
+            "notes": "–",
+            "property": "label",
+            "value": "\"Upload\""
+          },
+          {
+            "notes": "–",
+            "property": "variant",
+            "value": "outline"
+          },
+          {
+            "notes": "–",
+            "property": "size",
+            "value": "sm"
+          },
+          {
+            "notes": "Upload glyph from the icon library",
+            "property": "leadingIcon",
+            "value": "icon"
+          }
+        ],
+        "textOverrides": {
+          "Label": "Upload"
+        },
+        "title": "Example 2 — Outline button with leading icon",
+        "variantProperties": {
+          "Leading icon#54:49": true,
+          "Size": "sm",
+          "Trailing icon#54:98": false,
+          "Variant": "outline"
+        }
+      },
+      {
+        "properties": [
+          {
+            "notes": "–",
+            "property": "label",
+            "value": "\"Delete project\""
+          },
+          {
+            "notes": "Pair with a confirmation step",
+            "property": "variant",
+            "value": "destructive"
+          }
+        ],
+        "textOverrides": {
+          "Label": "Delete project"
+        },
+        "title": "Example 3 — Destructive action",
+        "variantProperties": {
+          "Leading icon#54:49": false,
+          "Size": "default",
+          "Trailing icon#54:98": false,
+          "Variant": "destructive"
+        }
+      },
+      {
+        "properties": [
+          {
+            "notes": "–",
+            "property": "variant",
+            "value": "ghost"
+          },
+          {
+            "notes": "Square icon-only button",
+            "property": "size",
+            "value": "icon"
+          },
+          {
+            "notes": "Requires an accessible name, e.g. \"More options\"",
+            "property": "leadingIcon",
+            "value": "icon"
+          }
+        ],
+        "title": "Example 4 — Icon-only ghost button",
+        "variantProperties": {
+          "Leading icon#54:49": true,
+          "Size": "icon",
+          "Trailing icon#54:98": false,
+          "Variant": "ghost"
+        }
+      }
+    ],
+    "generalNotes": "Button is a single-element wrapper around the Button component set; its public API is the child's configuration promoted to the parent. `size` covers both text sizes (default, xs, sm, lg) and square icon-only sizes (icon, icon-xs, icon-sm, icon-lg); for icon-only sizes provide an accessible name since no visible label is expected. `leadingIcon` and `trailingIcon` are independent and may be combined. No variable-mode collections (density, shape) control this component.",
+    "mainTable": {
+      "properties": [
+        {
+          "default": "default",
+          "notes": "Visual style. Use default for the primary action, destructive for dangerous actions, link for inline text-style actions.",
+          "property": "variant",
+          "required": false,
+          "values": "default, outline, ghost, destructive, secondary, link"
+        },
+        {
+          "default": "default",
+          "notes": "Height and padding scale. icon* values are square icon-only sizes.",
+          "property": "size",
+          "required": false,
+          "values": "default, xs, sm, lg, icon, icon-xs, icon-sm, icon-lg"
+        },
+        {
+          "default": "–",
+          "notes": "Visible button text (design placeholder: \"Button\"). Use an accessible name instead for icon-only sizes.",
+          "property": "label",
+          "required": true,
+          "values": "string"
+        },
+        {
+          "default": "none",
+          "notes": "Optional icon before the label; supply the glyph from the icon library.",
+          "property": "leadingIcon",
+          "required": false,
+          "values": "none, icon"
+        },
+        {
+          "default": "none",
+          "notes": "Optional icon after the label, e.g. a chevron or external-link indicator.",
+          "property": "trailingIcon",
+          "required": false,
+          "values": "none, icon"
+        }
+      ]
+    },
+    "subComponentTables": []
+  },
+  "color": {
+    "_containerRerunHint": {
+      "action": "Optional: run create-component-md on each constitutive child to produce the per-child canonical color spec. The parent .md is shippable as-is — do not treat this hint as a gap.",
+      "reason": "Some painted pixels on this parent are rendered inside constitutive sub-component instances; the canonical color spec for those pixels lives on each child's own .md. The parent's flattened color attribution is fully measured here from colorWalk[] and is authoritative for the parent.",
+      "source": "derivative-of-_childComposition",
+      "subCompSetIds": [
+        "54:1996"
+      ],
+      "subCompSetNames": [
+        "Button"
+      ],
+      "trigger": "all-sub"
+    },
+    "_deltaExtractions": [
+      {
+        "byteCount": 0,
+        "purpose": "Resolve color tokens for unmeasured child Button variants (outline, ghost, destructive, secondary, link); Phase I sub-component variant walk skipped (48 combos > cap 20)",
+        "script": null,
+        "timestamp": "2026-11-02T15:53:57.000Z",
+        "unavailable": "mcp-unavailable"
+      }
+    ],
+    "_dictionaryUnavailable": false,
+    "_extractionArtifacts": {
+      "axisClassification": {},
+      "containerSymptomEvidence": "Parent COMPONENT 46:2193 contributes no paints of its own; the 'Button' fill entry is on node 46:2187, the constitutive Button instance placement (revealedColorWalk tags it subComponentName=Button). All other entries carry subComponentName=Button.",
+      "containerSymptoms": [
+        "all-sub"
+      ],
+      "dictionaryMismatches": [
+        {
+          "dictionary": "variant=outline",
+          "kind": "value-missing",
+          "note": "Dictionary variant value not color-measured; only child Variant=default was walked (48 > cap 20).",
+          "observed": null
+        },
+        {
+          "dictionary": "variant=ghost",
+          "kind": "value-missing",
+          "note": "Dictionary variant value not color-measured; only child Variant=default was walked (48 > cap 20).",
+          "observed": null
+        },
+        {
+          "dictionary": "variant=destructive",
+          "kind": "value-missing",
+          "note": "Dictionary variant value not color-measured; only child Variant=default was walked (48 > cap 20).",
+          "observed": null
+        },
+        {
+          "dictionary": "variant=secondary",
+          "kind": "value-missing",
+          "note": "Dictionary variant value not color-measured; only child Variant=default was walked (48 > cap 20).",
+          "observed": null
+        },
+        {
+          "dictionary": "variant=link",
+          "kind": "value-missing",
+          "note": "Dictionary variant value not color-measured; only child Variant=default was walked (48 > cap 20).",
+          "observed": null
+        }
+      ],
+      "extractionWarnings": [
+        "Phase I skipped \"Button\" sub-component variant walk (48 combos > cap 20)."
+      ],
+      "modeDetection": {
+        "hasModeCollection": false,
+        "note": "Collections 'primitive' and 'semantic' each have a single mode."
+      },
+      "schemaWarnings": [],
+      "strategy": "A",
+      "strategyReason": "Standalone COMPONENT with no variant axes and no state axis; Gate 1 (non-state multiplier) fails, so Strategy A with a single section.",
+      "subComponentsReferenced": [
+        "Button"
+      ],
+      "uniqueTokens": [
+        "color/action/dark/background",
+        "color/text/on-dark/strong"
+      ],
+      "variantAxes": {}
+    },
+    "compSetNodeId": "46:2193",
+    "componentName": "Button",
+    "generalNotes": "All painted colors are rendered inside the constitutive Button instance (Variant=default, Size=default); tokens here are measured from colorWalk[] and are authoritative for this component. The child Button set's own spec holds its per-variant color canon. Only the default child variant was measured: outline, ghost, destructive, secondary and link were not walked (48 combos > cap 20). Leading and trailing icon glyphs are hidden by default (Leading icon / Trailing icon booleans off) and share the label token when shown. All tokens are semantic aliases from single-mode collections; no hard-coded colors.",
+    "renderingStrategy": "A",
+    "variants": [
+      {
+        "name": "Button",
+        "tables": [
+          {
+            "elementHexes": [
+              {
+                "hex": "#000000"
+              },
+              {
+                "hex": "#FFFFFF"
+              },
+              {
+                "hex": "#FFFFFF"
+              },
+              {
+                "hex": "#FFFFFF"
+              }
+            ],
+            "elements": [
+              {
+                "element": "Background fill",
+                "notes": "Button container surface color",
+                "token": "color/action/dark/background"
+              },
+              {
+                "element": "Leading icon glyph",
+                "notes": "Leading icon stroke. Hidden by default.",
+                "token": "color/text/on-dark/strong"
+              },
+              {
+                "element": "Label",
+                "notes": "Button label text color",
+                "token": "color/text/on-dark/strong"
+              },
+              {
+                "element": "Trailing icon glyph",
+                "notes": "Trailing icon stroke. Hidden by default.",
+                "token": "color/text/on-dark/strong"
+              }
+            ],
+            "name": "Spec"
+          }
+        ],
+        "variantProperties": {}
+      }
+    ]
+  },
+  "component": {
+    "name": "Button",
+    "slug": "button"
+  },
+  "dictionary": {
+    "axes": [
+      {
+        "classification": "variant",
+        "name": "variant",
+        "values": [
+          {
+            "figmaValue": null,
+            "name": "default",
+            "runtimeCondition": null
+          },
+          {
+            "figmaValue": null,
+            "name": "outline",
+            "runtimeCondition": null
+          },
+          {
+            "figmaValue": null,
+            "name": "ghost",
+            "runtimeCondition": null
+          },
+          {
+            "figmaValue": null,
+            "name": "destructive",
+            "runtimeCondition": null
+          },
+          {
+            "figmaValue": null,
+            "name": "secondary",
+            "runtimeCondition": null
+          },
+          {
+            "figmaValue": null,
+            "name": "link",
+            "runtimeCondition": null
+          }
+        ]
+      },
+      {
+        "classification": "variant",
+        "name": "size",
+        "values": [
+          {
+            "figmaValue": null,
+            "name": "default",
+            "runtimeCondition": null
+          },
+          {
+            "figmaValue": null,
+            "name": "xs",
+            "runtimeCondition": null
+          },
+          {
+            "figmaValue": null,
+            "name": "sm",
+            "runtimeCondition": null
+          },
+          {
+            "figmaValue": null,
+            "name": "lg",
+            "runtimeCondition": null
+          },
+          {
+            "figmaValue": null,
+            "name": "icon",
+            "runtimeCondition": null
+          },
+          {
+            "figmaValue": null,
+            "name": "icon-xs",
+            "runtimeCondition": null
+          },
+          {
+            "figmaValue": null,
+            "name": "icon-sm",
+            "runtimeCondition": null
+          },
+          {
+            "figmaValue": null,
+            "name": "icon-lg",
+            "runtimeCondition": null
+          }
+        ]
+      },
+      {
+        "classification": "variant",
+        "name": "leadingIcon",
+        "values": [
+          {
+            "figmaValue": null,
+            "name": "none",
+            "runtimeCondition": null
+          },
+          {
+            "figmaValue": null,
+            "name": "icon",
+            "runtimeCondition": null
+          }
+        ]
+      },
+      {
+        "classification": "variant",
+        "name": "trailingIcon",
+        "values": [
+          {
+            "figmaValue": null,
+            "name": "none",
+            "runtimeCondition": null
+          },
+          {
+            "figmaValue": null,
+            "name": "icon",
+            "runtimeCondition": null
+          }
+        ]
+      }
+    ],
+    "booleanProps": [],
+    "booleanRelationships": [
+      {
+        "apiDecision": "kept-separate",
+        "apiShape": null,
+        "booleansConsidered": [
+          "Leading icon#54:49",
+          "Trailing icon#54:98"
+        ],
+        "relationship": "orthogonal",
+        "subComponentName": "Button"
+      }
+    ],
+    "componentName": "Button",
+    "referencedComponents": [],
+    "slots": [],
+    "states": [],
+    "subComponents": []
+  },
+  "generatedAt": "2026-11-02T16:12:00.000Z",
+  "provenance": {
+    "obligationCoverage": {
+      "api": {
+        "emitted": 2,
+        "merged": 0,
+        "omitted": 0,
+        "total": 2,
+        "unresolved": 0
+      },
+      "color": {
+        "emitted": 4,
+        "merged": 0,
+        "omitted": 0,
+        "total": 4,
+        "unresolved": 0
+      },
+      "structure": {
+        "emitted": 67,
+        "merged": 29,
+        "omitted": 0,
+        "total": 96,
+        "unresolved": 0
+      },
+      "voice": {
+        "emitted": 1,
+        "merged": 1,
+        "omitted": 0,
+        "total": 2,
+        "unresolved": 0
+      }
+    },
+    "preparedAt": "2026-11-02T15:50:05.423Z"
+  },
+  "reconciliations": {
+    "autoReconciled": [],
+    "retries": [],
+    "reviewedBenign": [
+      {
+        "class": "value-extra",
+        "note": "Structure section for the constitutive child whose props are promoted to the parent API; part of the API surface, not a gap.",
+        "observed": "Button",
+        "resolvesTo": "subComponent:Button (constitutive child 54:1996; booleanRelationships[0].subComponentName)",
+        "specialist": "structure"
+      }
+    ],
+    "unresolved": [
+      {
+        "class": "coverage-gap",
+        "detail": "variant outline, ghost, destructive, secondary, link not measured; child variant walk skipped (48 > cap 20). Re-extract to cover them.",
+        "severity": "high",
+        "specialist": "color"
+      }
+    ]
+  },
+  "schemaVersion": "1.0",
+  "source": {
+    "baseSourceHash": "sha256:0238315e549b5e0829ee9dec458d470d362b6b5f1b47ecc445136580dd8bcd27",
+    "extractionSource": "plugin",
+    "figmaUrl": "https://www.figma.com/design/MrLoeDUoaga8joFAIlWzfQ/Untitled?node-id=46-2193",
+    "fileKey": "MrLoeDUoaga8joFAIlWzfQ",
+    "nodeId": "46:2193"
+  },
+  "sourceModel": {
+    "childComposition": {
+      "ambiguousChildren": [],
+      "children": [
+        {
+          "booleanOverrides": {
+            "Leading icon#54:49": false,
+            "Trailing icon#54:98": false
+          },
+          "classification": "constitutive",
+          "classificationEvidence": [
+            "user-selected"
+          ],
+          "classificationReason": "Set by designer in the uSpec Extract plugin.",
+          "componentProperties": {
+            "Label": {
+              "type": "TEXT",
+              "value": "Button"
+            },
+            "Leading icon": {
+              "type": "BOOLEAN",
+              "value": false
+            },
+            "Size": {
+              "type": "VARIANT",
+              "value": "default"
+            },
+            "Trailing icon": {
+              "type": "BOOLEAN",
+              "value": false
+            },
+            "Variant": {
+              "type": "VARIANT",
+              "value": "default"
+            }
+          },
+          "defaultVariantPresent": true,
+          "mainComponentName": "Variant=default, Size=default",
+          "name": "Button",
+          "nodeType": "INSTANCE",
+          "origin": "top-level",
+          "parentSetName": "Button",
+          "placementCount": 1,
+          "placementIndices": [
+            0
+          ],
+          "placementsByVariant": {
+            "Button": {
+              "nodeIds": [
+                "46:2187"
+              ],
+              "placementIndices": [
+                0
+              ],
+              "variantId": "46:2193"
+            }
+          },
+          "placementsVary": false,
+          "presentInVariants": [
+            "Button"
+          ],
+          "slotName": null,
+          "subCompSetId": "54:1996",
+          "subCompVariantAxes": {
+            "Size": [
+              "default",
+              "xs",
+              "sm",
+              "lg",
+              "icon",
+              "icon-xs",
+              "icon-sm",
+              "icon-lg"
+            ],
+            "Variant": [
+              "default",
+              "outline",
+              "ghost",
+              "destructive",
+              "secondary",
+              "link"
+            ]
+          },
+          "topLevelInstanceId": "component:54:1996"
+        }
+      ],
+      "guessConfidence": "high"
+    },
+    "component": {
+      "compSetNodeId": "46:2193",
+      "componentName": "Button",
+      "isComponentSet": false
+    },
+    "defaultTree": {
+      "children": [
+        {
+          "booleanOverrides": {
+            "Leading icon#54:49": false,
+            "Trailing icon#54:98": false
+          },
+          "children": [
+            {
+              "children": [
+                {
+                  "dimensions": {
+                    "cornerRadius": {
+                      "display": "0",
+                      "token": null,
+                      "value": 0
+                    },
+                    "height": {
+                      "display": "size/button/glyph/default (16)",
+                      "token": "size/button/glyph/default",
+                      "value": 16
+                    },
+                    "layoutSizingHorizontal": {
+                      "display": "FIXED",
+                      "token": null,
+                      "value": "FIXED"
+                    },
+                    "layoutSizingVertical": {
+                      "display": "FIXED",
+                      "token": null,
+                      "value": "FIXED"
+                    },
+                    "strokeAlign": {
+                      "display": "inside",
+                      "token": null,
+                      "value": "INSIDE"
+                    },
+                    "strokeWeight": {
+                      "display": "border-width/button/icon (1.5)",
+                      "token": "border-width/button/icon",
+                      "value": 1.5
+                    },
+                    "width": {
+                      "display": "size/button/glyph/default (16)",
+                      "token": "size/button/glyph/default",
+                      "value": 16
+                    }
+                  },
+                  "id": "I46:2187;54:1734",
+                  "name": "Glyph",
+                  "type": "VECTOR",
+                  "visible": true
+                }
+              ],
+              "dimensions": {
+                "clipsContent": {
+                  "display": "true",
+                  "token": null,
+                  "value": true
+                },
+                "cornerRadius": {
+                  "display": "0",
+                  "token": null,
+                  "value": 0
+                },
+                "counterAxisAlignItems": {
+                  "display": "CENTER",
+                  "token": null,
+                  "value": "CENTER"
+                },
+                "counterAxisSpacing": {
+                  "display": "0",
+                  "token": null,
+                  "value": 0
+                },
+                "height": {
+                  "display": "size/button/glyph/default (16)",
+                  "token": "size/button/glyph/default",
+                  "value": 16
+                },
+                "itemSpacing": {
+                  "display": "0",
+                  "token": null,
+                  "value": 0
+                },
+                "layoutMode": {
+                  "display": "HORIZONTAL",
+                  "token": null,
+                  "value": "HORIZONTAL"
+                },
+                "layoutSizingHorizontal": {
+                  "display": "FIXED",
+                  "token": null,
+                  "value": "FIXED"
+                },
+                "layoutSizingVertical": {
+                  "display": "FIXED",
+                  "token": null,
+                  "value": "FIXED"
+                },
+                "padding": {
+                  "display": "0",
+                  "token": null,
+                  "value": 0
+                },
+                "primaryAxisAlignItems": {
+                  "display": "CENTER",
+                  "token": null,
+                  "value": "CENTER"
+                },
+                "strokeAlign": {
+                  "display": "inside",
+                  "token": null,
+                  "value": "INSIDE"
+                },
+                "strokeWeight": {
+                  "display": "1",
+                  "token": null,
+                  "value": 1
+                },
+                "width": {
+                  "display": "size/button/glyph/default (16)",
+                  "token": "size/button/glyph/default",
+                  "value": 16
+                }
+              },
+              "id": "I46:2187;54:1733",
+              "name": "Leading icon",
+              "type": "FRAME",
+              "visible": false
+            },
+            {
+              "dimensions": {
+                "height": {
+                  "display": "20",
+                  "token": null,
+                  "value": 20
+                },
+                "layoutSizingHorizontal": {
+                  "display": "HUG",
+                  "token": null,
+                  "value": "HUG"
+                },
+                "layoutSizingVertical": {
+                  "display": "HUG",
+                  "token": null,
+                  "value": "HUG"
+                },
+                "strokeAlign": {
+                  "display": "inside",
+                  "token": null,
+                  "value": "INSIDE"
+                },
+                "strokeWeight": {
+                  "display": "1",
+                  "token": null,
+                  "value": 1
+                },
+                "width": {
+                  "display": "48",
+                  "token": null,
+                  "value": 48
+                }
+              },
+              "id": "I46:2187;54:1735",
+              "name": "Label",
+              "type": "TEXT",
+              "typography": {
+                "fontFamily": "Inter",
+                "fontSize": 15,
+                "fontWeight": "Medium",
+                "lineHeight": 20
+              },
+              "visible": true
+            },
+            {
+              "children": [
+                {
+                  "dimensions": {
+                    "cornerRadius": {
+                      "display": "0",
+                      "token": null,
+                      "value": 0
+                    },
+                    "height": {
+                      "display": "size/button/glyph/default (16)",
+                      "token": "size/button/glyph/default",
+                      "value": 16
+                    },
+                    "layoutSizingHorizontal": {
+                      "display": "FIXED",
+                      "token": null,
+                      "value": "FIXED"
+                    },
+                    "layoutSizingVertical": {
+                      "display": "FIXED",
+                      "token": null,
+                      "value": "FIXED"
+                    },
+                    "strokeAlign": {
+                      "display": "inside",
+                      "token": null,
+                      "value": "INSIDE"
+                    },
+                    "strokeWeight": {
+                      "display": "border-width/button/icon (1.5)",
+                      "token": "border-width/button/icon",
+                      "value": 1.5
+                    },
+                    "width": {
+                      "display": "size/button/glyph/default (16)",
+                      "token": "size/button/glyph/default",
+                      "value": 16
+                    }
+                  },
+                  "id": "I46:2187;54:1737",
+                  "name": "Glyph",
+                  "type": "VECTOR",
+                  "visible": true
+                }
+              ],
+              "dimensions": {
+                "clipsContent": {
+                  "display": "true",
+                  "token": null,
+                  "value": true
+                },
+                "cornerRadius": {
+                  "display": "0",
+                  "token": null,
+                  "value": 0
+                },
+                "counterAxisAlignItems": {
+                  "display": "CENTER",
+                  "token": null,
+                  "value": "CENTER"
+                },
+                "counterAxisSpacing": {
+                  "display": "0",
+                  "token": null,
+                  "value": 0
+                },
+                "height": {
+                  "display": "size/button/glyph/default (16)",
+                  "token": "size/button/glyph/default",
+                  "value": 16
+                },
+                "itemSpacing": {
+                  "display": "0",
+                  "token": null,
+                  "value": 0
+                },
+                "layoutMode": {
+                  "display": "HORIZONTAL",
+                  "token": null,
+                  "value": "HORIZONTAL"
+                },
+                "layoutSizingHorizontal": {
+                  "display": "FIXED",
+                  "token": null,
+                  "value": "FIXED"
+                },
+                "layoutSizingVertical": {
+                  "display": "FIXED",
+                  "token": null,
+                  "value": "FIXED"
+                },
+                "padding": {
+                  "display": "0",
+                  "token": null,
+                  "value": 0
+                },
+                "primaryAxisAlignItems": {
+                  "display": "CENTER",
+                  "token": null,
+                  "value": "CENTER"
+                },
+                "strokeAlign": {
+                  "display": "inside",
+                  "token": null,
+                  "value": "INSIDE"
+                },
+                "strokeWeight": {
+                  "display": "1",
+                  "token": null,
+                  "value": 1
+                },
+                "width": {
+                  "display": "size/button/glyph/default (16)",
+                  "token": "size/button/glyph/default",
+                  "value": 16
+                }
+              },
+              "id": "I46:2187;54:1736",
+              "name": "Trailing icon",
+              "type": "FRAME",
+              "visible": false
+            }
+          ],
+          "componentProperties": {
+            "Label": {
+              "type": "TEXT",
+              "value": "Button"
+            },
+            "Leading icon": {
+              "type": "BOOLEAN",
+              "value": false
+            },
+            "Size": {
+              "type": "VARIANT",
+              "value": "default"
+            },
+            "Trailing icon": {
+              "type": "BOOLEAN",
+              "value": false
+            },
+            "Variant": {
+              "type": "VARIANT",
+              "value": "default"
+            }
+          },
+          "dimensions": {
+            "clipsContent": {
+              "display": "true",
+              "token": null,
+              "value": true
+            },
+            "cornerRadius": {
+              "display": "8",
+              "token": null,
+              "value": 8
+            },
+            "counterAxisAlignItems": {
+              "display": "CENTER",
+              "token": null,
+              "value": "CENTER"
+            },
+            "counterAxisSpacing": {
+              "display": "0",
+              "token": null,
+              "value": 0
+            },
+            "height": {
+              "display": "48",
+              "token": null,
+              "value": 48
+            },
+            "itemSpacing": {
+              "display": "spacing/button/gap (20)",
+              "token": "spacing/button/gap",
+              "value": 20
+            },
+            "layoutMode": {
+              "display": "HORIZONTAL",
+              "token": null,
+              "value": "HORIZONTAL"
+            },
+            "layoutSizingHorizontal": {
+              "display": "HUG",
+              "token": null,
+              "value": "HUG"
+            },
+            "layoutSizingVertical": {
+              "display": "HUG",
+              "token": null,
+              "value": "HUG"
+            },
+            "padding": {
+              "horizontal": {
+                "display": "spacing/button/padding-x (20)",
+                "token": "spacing/button/padding-x",
+                "value": 20
+              },
+              "vertical": {
+                "display": "spacing/button/padding-y (14)",
+                "token": "spacing/button/padding-y",
+                "value": 14
+              }
+            },
+            "primaryAxisAlignItems": {
+              "display": "CENTER",
+              "token": null,
+              "value": "CENTER"
+            },
+            "strokeAlign": {
+              "display": "inside",
+              "token": null,
+              "value": "INSIDE"
+            },
+            "strokeWeight": {
+              "display": "0",
+              "token": null,
+              "value": 0
+            },
+            "width": {
+              "display": "88",
+              "token": null,
+              "value": 88
+            }
+          },
+          "id": "46:2187",
+          "mainComponentName": "Variant=default, Size=default",
+          "name": "Button",
+          "parentSetName": "Button",
+          "subCompSetId": "54:1996",
+          "subCompVariantAxes": {
+            "Size": [
+              "default",
+              "xs",
+              "sm",
+              "lg",
+              "icon",
+              "icon-xs",
+              "icon-sm",
+              "icon-lg"
+            ],
+            "Variant": [
+              "default",
+              "outline",
+              "ghost",
+              "destructive",
+              "secondary",
+              "link"
+            ]
+          },
+          "type": "INSTANCE",
+          "visible": true
+        }
+      ],
+      "dimensions": {
+        "clipsContent": {
+          "display": "false",
+          "token": null,
+          "value": false
+        },
+        "cornerRadius": {
+          "display": "0",
+          "token": null,
+          "value": 0
+        },
+        "counterAxisAlignItems": {
+          "display": "MIN",
+          "token": null,
+          "value": "MIN"
+        },
+        "counterAxisSpacing": {
+          "display": "0",
+          "token": null,
+          "value": 0
+        },
+        "height": {
+          "display": "48",
+          "token": null,
+          "value": 48
+        },
+        "itemSpacing": {
+          "display": "0",
+          "token": null,
+          "value": 0
+        },
+        "layoutMode": {
+          "display": "HORIZONTAL",
+          "token": null,
+          "value": "HORIZONTAL"
+        },
+        "layoutSizingHorizontal": {
+          "display": "HUG",
+          "token": null,
+          "value": "HUG"
+        },
+        "layoutSizingVertical": {
+          "display": "HUG",
+          "token": null,
+          "value": "HUG"
+        },
+        "padding": {
+          "display": "0",
+          "token": null,
+          "value": 0
+        },
+        "primaryAxisAlignItems": {
+          "display": "MIN",
+          "token": null,
+          "value": "MIN"
+        },
+        "strokeAlign": {
+          "display": "inside",
+          "token": null,
+          "value": "INSIDE"
+        },
+        "strokeWeight": {
+          "display": "1",
+          "token": null,
+          "value": 1
+        },
+        "width": {
+          "display": "88",
+          "token": null,
+          "value": 88
+        }
+      },
+      "id": "46:2193",
+      "name": "Button",
+      "type": "COMPONENT",
+      "visible": true
+    },
+    "defaultVariant": {
+      "id": "46:2193",
+      "name": "Button",
+      "variantProperties": {}
+    },
+    "extractionNotes": {
+      "mutationsPerformed": [
+        {
+          "action": "createInstance",
+          "target": "tempInst-Button"
+        },
+        {
+          "action": "setProperties-all-booleans",
+          "target": "tempInst-Button"
+        },
+        {
+          "action": "remove",
+          "target": "tempInst-Button"
+        }
+      ],
+      "warnings": [
+        "Phase I skipped \"Button\" sub-component variant walk (48 combos > cap 20)."
+      ]
+    },
+    "propertyDefinitions": {
+      "booleans": [],
+      "instanceSwaps": [],
+      "rawDefs": {},
+      "slots": []
+    },
+    "slotHostGeometry": {
+      "boolGatedFillers": [],
+      "swapResults": {},
+      "swapResultsByVariant": {}
+    },
+    "source": {
+      "extractedAt": "2026-11-02T15:25:34.559Z",
+      "extractionSource": "plugin",
+      "figmaUrl": "https://www.figma.com/design/MrLoeDUoaga8joFAIlWzfQ/Untitled?node-id=46-2193",
+      "fileKey": "MrLoeDUoaga8joFAIlWzfQ",
+      "nodeId": "46:2193",
+      "optionalContext": null
+    },
+    "subComponentVariantWalks": {
+      "54:1996": {
+        "axes": {
+          "Size": [
+            "default",
+            "xs",
+            "sm",
+            "lg",
+            "icon",
+            "icon-xs",
+            "icon-sm",
+            "icon-lg"
+          ],
+          "Variant": [
+            "default",
+            "outline",
+            "ghost",
+            "destructive",
+            "secondary",
+            "link"
+          ]
+        },
+        "classification": "constitutive",
+        "name": "Button",
+        "skipped": true,
+        "skippedReason": "cross-product 48 exceeds cap 20",
+        "subCompSetId": "54:1996",
+        "subCompSetName": "Button",
+        "variants": []
+      }
+    },
+    "variantAxes": [],
+    "variantSelfChecks": [
+      {
+        "id": "46:2193",
+        "name": "Button",
+        "selfCheck": null
+      }
+    ],
+    "variantTrees": [
+      {
+        "id": "46:2193",
+        "name": "Button",
+        "revealedTree": {
+          "children": [
+            {
+              "dimensions": {
+                "height": {
+                  "display": "48",
+                  "token": null,
+                  "value": 48
+                },
+                "itemSpacing": {
+                  "display": "spacing/button/gap (20)",
+                  "token": "spacing/button/gap",
+                  "value": 20
+                },
+                "layoutMode": "HORIZONTAL",
+                "paddingBottom": {
+                  "display": "spacing/button/padding-y (14)",
+                  "token": "spacing/button/padding-y",
+                  "value": 14
+                },
+                "paddingLeft": {
+                  "display": "spacing/button/padding-x (20)",
+                  "token": "spacing/button/padding-x",
+                  "value": 20
+                },
+                "paddingRight": {
+                  "display": "spacing/button/padding-x (20)",
+                  "token": "spacing/button/padding-x",
+                  "value": 20
+                },
+                "paddingTop": {
+                  "display": "spacing/button/padding-y (14)",
+                  "token": "spacing/button/padding-y",
+                  "value": 14
+                },
+                "width": {
+                  "display": "88",
+                  "token": null,
+                  "value": 88
+                }
+              },
+              "id": "I46:2194;46:2187",
+              "mainComponentName": "Variant=default, Size=default",
+              "name": "Button",
+              "parentSetName": "Button",
+              "type": "INSTANCE",
+              "visible": true
+            }
+          ],
+          "dimensions": {
+            "height": {
+              "display": "48",
+              "token": null,
+              "value": 48
+            },
+            "itemSpacing": {
+              "display": "0",
+              "token": null,
+              "value": 0
+            },
+            "layoutMode": "HORIZONTAL",
+            "paddingBottom": {
+              "display": "0",
+              "token": null,
+              "value": 0
+            },
+            "paddingLeft": {
+              "display": "0",
+              "token": null,
+              "value": 0
+            },
+            "paddingRight": {
+              "display": "0",
+              "token": null,
+              "value": 0
+            },
+            "paddingTop": {
+              "display": "0",
+              "token": null,
+              "value": 0
+            },
+            "width": {
+              "display": "88",
+              "token": null,
+              "value": 88
+            }
+          },
+          "id": "46:2194",
+          "mainComponentName": "Button",
+          "name": "Button",
+          "parentSetName": "Button",
+          "type": "INSTANCE",
+          "visible": true
+        },
+        "revealedTreeRepresentative": "Button",
+        "treeHierarchical": {
+          "children": [
+            {
+              "booleanOverrides": {
+                "Leading icon#54:49": false,
+                "Trailing icon#54:98": false
+              },
+              "children": [
+                {
+                  "children": [
+                    {
+                      "dimensions": {
+                        "cornerRadius": {
+                          "display": "0",
+                          "token": null,
+                          "value": 0
+                        },
+                        "height": {
+                          "display": "size/button/glyph/default (16)",
+                          "token": "size/button/glyph/default",
+                          "value": 16
+                        },
+                        "layoutSizingHorizontal": {
+                          "display": "FIXED",
+                          "token": null,
+                          "value": "FIXED"
+                        },
+                        "layoutSizingVertical": {
+                          "display": "FIXED",
+                          "token": null,
+                          "value": "FIXED"
+                        },
+                        "strokeAlign": {
+                          "display": "inside",
+                          "token": null,
+                          "value": "INSIDE"
+                        },
+                        "strokeWeight": {
+                          "display": "border-width/button/icon (1.5)",
+                          "token": "border-width/button/icon",
+                          "value": 1.5
+                        },
+                        "width": {
+                          "display": "size/button/glyph/default (16)",
+                          "token": "size/button/glyph/default",
+                          "value": 16
+                        }
+                      },
+                      "id": "I46:2187;54:1734",
+                      "name": "Glyph",
+                      "type": "VECTOR",
+                      "visible": true
+                    }
+                  ],
+                  "dimensions": {
+                    "clipsContent": {
+                      "display": "true",
+                      "token": null,
+                      "value": true
+                    },
+                    "cornerRadius": {
+                      "display": "0",
+                      "token": null,
+                      "value": 0
+                    },
+                    "counterAxisAlignItems": {
+                      "display": "CENTER",
+                      "token": null,
+                      "value": "CENTER"
+                    },
+                    "counterAxisSpacing": {
+                      "display": "0",
+                      "token": null,
+                      "value": 0
+                    },
+                    "height": {
+                      "display": "size/button/glyph/default (16)",
+                      "token": "size/button/glyph/default",
+                      "value": 16
+                    },
+                    "itemSpacing": {
+                      "display": "0",
+                      "token": null,
+                      "value": 0
+                    },
+                    "layoutMode": {
+                      "display": "HORIZONTAL",
+                      "token": null,
+                      "value": "HORIZONTAL"
+                    },
+                    "layoutSizingHorizontal": {
+                      "display": "FIXED",
+                      "token": null,
+                      "value": "FIXED"
+                    },
+                    "layoutSizingVertical": {
+                      "display": "FIXED",
+                      "token": null,
+                      "value": "FIXED"
+                    },
+                    "padding": {
+                      "display": "0",
+                      "token": null,
+                      "value": 0
+                    },
+                    "primaryAxisAlignItems": {
+                      "display": "CENTER",
+                      "token": null,
+                      "value": "CENTER"
+                    },
+                    "strokeAlign": {
+                      "display": "inside",
+                      "token": null,
+                      "value": "INSIDE"
+                    },
+                    "strokeWeight": {
+                      "display": "1",
+                      "token": null,
+                      "value": 1
+                    },
+                    "width": {
+                      "display": "size/button/glyph/default (16)",
+                      "token": "size/button/glyph/default",
+                      "value": 16
+                    }
+                  },
+                  "id": "I46:2187;54:1733",
+                  "name": "Leading icon",
+                  "type": "FRAME",
+                  "visible": false
+                },
+                {
+                  "dimensions": {
+                    "height": {
+                      "display": "20",
+                      "token": null,
+                      "value": 20
+                    },
+                    "layoutSizingHorizontal": {
+                      "display": "HUG",
+                      "token": null,
+                      "value": "HUG"
+                    },
+                    "layoutSizingVertical": {
+                      "display": "HUG",
+                      "token": null,
+                      "value": "HUG"
+                    },
+                    "strokeAlign": {
+                      "display": "inside",
+                      "token": null,
+                      "value": "INSIDE"
+                    },
+                    "strokeWeight": {
+                      "display": "1",
+                      "token": null,
+                      "value": 1
+                    },
+                    "width": {
+                      "display": "48",
+                      "token": null,
+                      "value": 48
+                    }
+                  },
+                  "id": "I46:2187;54:1735",
+                  "name": "Label",
+                  "type": "TEXT",
+                  "typography": {
+                    "fontFamily": "Inter",
+                    "fontSize": 15,
+                    "fontWeight": "Medium",
+                    "lineHeight": 20
+                  },
+                  "visible": true
+                },
+                {
+                  "children": [
+                    {
+                      "dimensions": {
+                        "cornerRadius": {
+                          "display": "0",
+                          "token": null,
+                          "value": 0
+                        },
+                        "height": {
+                          "display": "size/button/glyph/default (16)",
+                          "token": "size/button/glyph/default",
+                          "value": 16
+                        },
+                        "layoutSizingHorizontal": {
+                          "display": "FIXED",
+                          "token": null,
+                          "value": "FIXED"
+                        },
+                        "layoutSizingVertical": {
+                          "display": "FIXED",
+                          "token": null,
+                          "value": "FIXED"
+                        },
+                        "strokeAlign": {
+                          "display": "inside",
+                          "token": null,
+                          "value": "INSIDE"
+                        },
+                        "strokeWeight": {
+                          "display": "border-width/button/icon (1.5)",
+                          "token": "border-width/button/icon",
+                          "value": 1.5
+                        },
+                        "width": {
+                          "display": "size/button/glyph/default (16)",
+                          "token": "size/button/glyph/default",
+                          "value": 16
+                        }
+                      },
+                      "id": "I46:2187;54:1737",
+                      "name": "Glyph",
+                      "type": "VECTOR",
+                      "visible": true
+                    }
+                  ],
+                  "dimensions": {
+                    "clipsContent": {
+                      "display": "true",
+                      "token": null,
+                      "value": true
+                    },
+                    "cornerRadius": {
+                      "display": "0",
+                      "token": null,
+                      "value": 0
+                    },
+                    "counterAxisAlignItems": {
+                      "display": "CENTER",
+                      "token": null,
+                      "value": "CENTER"
+                    },
+                    "counterAxisSpacing": {
+                      "display": "0",
+                      "token": null,
+                      "value": 0
+                    },
+                    "height": {
+                      "display": "size/button/glyph/default (16)",
+                      "token": "size/button/glyph/default",
+                      "value": 16
+                    },
+                    "itemSpacing": {
+                      "display": "0",
+                      "token": null,
+                      "value": 0
+                    },
+                    "layoutMode": {
+                      "display": "HORIZONTAL",
+                      "token": null,
+                      "value": "HORIZONTAL"
+                    },
+                    "layoutSizingHorizontal": {
+                      "display": "FIXED",
+                      "token": null,
+                      "value": "FIXED"
+                    },
+                    "layoutSizingVertical": {
+                      "display": "FIXED",
+                      "token": null,
+                      "value": "FIXED"
+                    },
+                    "padding": {
+                      "display": "0",
+                      "token": null,
+                      "value": 0
+                    },
+                    "primaryAxisAlignItems": {
+                      "display": "CENTER",
+                      "token": null,
+                      "value": "CENTER"
+                    },
+                    "strokeAlign": {
+                      "display": "inside",
+                      "token": null,
+                      "value": "INSIDE"
+                    },
+                    "strokeWeight": {
+                      "display": "1",
+                      "token": null,
+                      "value": 1
+                    },
+                    "width": {
+                      "display": "size/button/glyph/default (16)",
+                      "token": "size/button/glyph/default",
+                      "value": 16
+                    }
+                  },
+                  "id": "I46:2187;54:1736",
+                  "name": "Trailing icon",
+                  "type": "FRAME",
+                  "visible": false
+                }
+              ],
+              "componentProperties": {
+                "Label": {
+                  "type": "TEXT",
+                  "value": "Button"
+                },
+                "Leading icon": {
+                  "type": "BOOLEAN",
+                  "value": false
+                },
+                "Size": {
+                  "type": "VARIANT",
+                  "value": "default"
+                },
+                "Trailing icon": {
+                  "type": "BOOLEAN",
+                  "value": false
+                },
+                "Variant": {
+                  "type": "VARIANT",
+                  "value": "default"
+                }
+              },
+              "dimensions": {
+                "clipsContent": {
+                  "display": "true",
+                  "token": null,
+                  "value": true
+                },
+                "cornerRadius": {
+                  "display": "8",
+                  "token": null,
+                  "value": 8
+                },
+                "counterAxisAlignItems": {
+                  "display": "CENTER",
+                  "token": null,
+                  "value": "CENTER"
+                },
+                "counterAxisSpacing": {
+                  "display": "0",
+                  "token": null,
+                  "value": 0
+                },
+                "height": {
+                  "display": "48",
+                  "token": null,
+                  "value": 48
+                },
+                "itemSpacing": {
+                  "display": "spacing/button/gap (20)",
+                  "token": "spacing/button/gap",
+                  "value": 20
+                },
+                "layoutMode": {
+                  "display": "HORIZONTAL",
+                  "token": null,
+                  "value": "HORIZONTAL"
+                },
+                "layoutSizingHorizontal": {
+                  "display": "HUG",
+                  "token": null,
+                  "value": "HUG"
+                },
+                "layoutSizingVertical": {
+                  "display": "HUG",
+                  "token": null,
+                  "value": "HUG"
+                },
+                "padding": {
+                  "horizontal": {
+                    "display": "spacing/button/padding-x (20)",
+                    "token": "spacing/button/padding-x",
+                    "value": 20
+                  },
+                  "vertical": {
+                    "display": "spacing/button/padding-y (14)",
+                    "token": "spacing/button/padding-y",
+                    "value": 14
+                  }
+                },
+                "primaryAxisAlignItems": {
+                  "display": "CENTER",
+                  "token": null,
+                  "value": "CENTER"
+                },
+                "strokeAlign": {
+                  "display": "inside",
+                  "token": null,
+                  "value": "INSIDE"
+                },
+                "strokeWeight": {
+                  "display": "0",
+                  "token": null,
+                  "value": 0
+                },
+                "width": {
+                  "display": "88",
+                  "token": null,
+                  "value": 88
+                }
+              },
+              "id": "46:2187",
+              "mainComponentName": "Variant=default, Size=default",
+              "name": "Button",
+              "parentSetName": "Button",
+              "subCompSetId": "54:1996",
+              "subCompVariantAxes": {
+                "Size": [
+                  "default",
+                  "xs",
+                  "sm",
+                  "lg",
+                  "icon",
+                  "icon-xs",
+                  "icon-sm",
+                  "icon-lg"
+                ],
+                "Variant": [
+                  "default",
+                  "outline",
+                  "ghost",
+                  "destructive",
+                  "secondary",
+                  "link"
+                ]
+              },
+              "type": "INSTANCE",
+              "visible": true
+            }
+          ],
+          "dimensions": {
+            "clipsContent": {
+              "display": "false",
+              "token": null,
+              "value": false
+            },
+            "cornerRadius": {
+              "display": "0",
+              "token": null,
+              "value": 0
+            },
+            "counterAxisAlignItems": {
+              "display": "MIN",
+              "token": null,
+              "value": "MIN"
+            },
+            "counterAxisSpacing": {
+              "display": "0",
+              "token": null,
+              "value": 0
+            },
+            "height": {
+              "display": "48",
+              "token": null,
+              "value": 48
+            },
+            "itemSpacing": {
+              "display": "0",
+              "token": null,
+              "value": 0
+            },
+            "layoutMode": {
+              "display": "HORIZONTAL",
+              "token": null,
+              "value": "HORIZONTAL"
+            },
+            "layoutSizingHorizontal": {
+              "display": "HUG",
+              "token": null,
+              "value": "HUG"
+            },
+            "layoutSizingVertical": {
+              "display": "HUG",
+              "token": null,
+              "value": "HUG"
+            },
+            "padding": {
+              "display": "0",
+              "token": null,
+              "value": 0
+            },
+            "primaryAxisAlignItems": {
+              "display": "MIN",
+              "token": null,
+              "value": "MIN"
+            },
+            "strokeAlign": {
+              "display": "inside",
+              "token": null,
+              "value": "INSIDE"
+            },
+            "strokeWeight": {
+              "display": "1",
+              "token": null,
+              "value": 1
+            },
+            "width": {
+              "display": "88",
+              "token": null,
+              "value": 88
+            }
+          },
+          "id": "46:2193",
+          "name": "Button",
+          "type": "COMPONENT",
+          "visible": true
+        },
+        "variantProperties": {}
+      }
+    ]
+  },
+  "structure": {
+    "_deltaExtractions": [
+      {
+        "byteCount": 0,
+        "purpose": "Phase I subComponentVariantWalks['54:1996'] skipped (cross-product 48 exceeds cap 20). Per-size (xs, sm, lg, icon, icon-xs, icon-sm, icon-lg) and per-Variant dimensions of the Button set are missing. A read-only use_figma walk of 54:1996 variants would recover them.",
+        "script": null,
+        "timestamp": "2026-11-02T15:57:40.000Z",
+        "unavailable": "mcp-unavailable"
+      }
+    ],
+    "_dictionaryUnavailable": false,
+    "_extractionArtifacts": {
+      "booleanDefs": {},
+      "coverageMatrix": {
+        "_walkNotes": "R1 roots: variants[0].treeHierarchical and variants[0].revealedTree. The root is a COMPONENT (traversed, not audited). Instance 46:2187 is constitutive (54:1996), so it is recursed. Label is TEXT and Glyph is VECTOR (not audited). The revealedTree root INSTANCE 46:2194 is not in _childComposition, so traversal stops there. Icon-frame strokeWeight 1 is configured but unpainted; it is recorded conservatively and covered by the borderWidth 'none' and borderAlign rows.",
+        "complete": true,
+        "entries": [
+          {
+            "emittedRows": [
+              {
+                "section": "Button",
+                "spec": "borderWidth"
+              },
+              {
+                "section": "Button",
+                "spec": "borderAlign"
+              }
+            ],
+            "missing": [],
+            "nodeId": "I46:2187;54:1733",
+            "nodePath": "Button/Button/Leading icon",
+            "nonZeroProps": [
+              {
+                "family": "borderWidth",
+                "source": "dimensions.strokeWeight.value",
+                "value": 1
+              },
+              {
+                "family": "borderAlign",
+                "source": "dimensions.strokeAlign.display",
+                "value": "inside"
+              }
+            ],
+            "owningSection": "Button",
+            "pendingReason": []
+          },
+          {
+            "emittedRows": [
+              {
+                "section": "Button",
+                "spec": "borderWidth"
+              },
+              {
+                "section": "Button",
+                "spec": "borderAlign"
+              }
+            ],
+            "missing": [],
+            "nodeId": "I46:2187;54:1736",
+            "nodePath": "Button/Button/Trailing icon",
+            "nonZeroProps": [
+              {
+                "family": "borderWidth",
+                "source": "dimensions.strokeWeight.value",
+                "value": 1
+              },
+              {
+                "family": "borderAlign",
+                "source": "dimensions.strokeAlign.display",
+                "value": "inside"
+              }
+            ],
+            "owningSection": "Button",
+            "pendingReason": []
+          }
+        ],
+        "totals": {
+          "framesWalked": 2,
+          "framesWithNonZeroProps": 2,
+          "missingFamilies": 0
+        }
+      },
+      "dictionaryMismatches": [
+        {
+          "dictionary": null,
+          "kind": "value-extra",
+          "note": "Constitutive child instance of the Button set (54:1996). The API promotes its props to the parent, so dictionary.subComponents is empty.",
+          "observed": "Button",
+          "section": "Button"
+        }
+      ],
+      "propertyDefs": {},
+      "sectionPlan": [
+        {
+          "booleanOverrides": {},
+          "columns": [
+            "Spec",
+            "Default",
+            "Notes"
+          ],
+          "dataSource": "variants[0].treeHierarchical (root 46:2193) + _childComposition.children[0]",
+          "preferredComponentId": null,
+          "preferredComponentSetId": null,
+          "sectionDescription": "Button is a standalone wrapper COMPONENT around one constitutive instance of the Button component set (Variant × Size). The wrapper adds no padding, spacing, radius or visible border; all dimensions come from the embedded child, documented in the Button section.",
+          "sectionName": "Button composition",
+          "sectionType": "composition",
+          "slotName": null,
+          "subCompSetId": null,
+          "variantAxis": null
+        },
+        {
+          "booleanOverrides": {
+            "Leading icon#54:49": true,
+            "Trailing icon#54:98": true
+          },
+          "columns": [
+            "Spec",
+            "default",
+            "xs",
+            "sm",
+            "lg",
+            "icon",
+            "icon-xs",
+            "icon-sm",
+            "icon-lg",
+            "Notes"
+          ],
+          "dataSource": "variants[0].treeHierarchical.children[0] (46:2187); subComponentVariantWalks['54:1996'] skipped",
+          "preferredComponentId": null,
+          "preferredComponentSetId": null,
+          "sectionDescription": "Internals of the embedded Button component-set instance. Columns follow the child's own Size axis. Only Size=default (with Variant=default) was measured. The plugin skipped the Phase I variant walk (cross-product 48 exceeds cap 20), so every other size column is —. Leading and trailing icon rows describe the hidden icon frames that appear when leadingIcon / trailingIcon = icon.",
+          "sectionName": "Button",
+          "sectionType": "subComponent",
+          "slotName": null,
+          "subCompSetId": "54:1996",
+          "variantAxis": "Size"
+        }
+      ],
+      "slotContentsSummary": [],
+      "subComponentsSummary": [
+        {
+          "mainComponentName": "Variant=default, Size=default",
+          "name": "Button",
+          "subCompSetId": "54:1996"
+        }
+      ],
+      "typographyTable": [],
+      "variantAxes": {},
+      "visualOnlyAxisDeltas": []
+    },
+    "componentName": "Button",
+    "generalNotes": "Button is a thin wrapper COMPONENT (46:2193) around one constitutive instance of the Button component set (54:1996). The wrapper adds no padding, gap, radius or visible border (its strokeWeight 1 is configured but unpainted), so every rendered dimension comes from the embedded child. Child spacing is token-driven from the spacing/button/* family: padding-y 14, padding-x 20, gap 20. Icon boxes and glyphs share size/button/glyph/default (16), and the glyph outline uses border-width/button/icon (1.5). Default height derives from 14 + 20 (label line height) + 14 = 48. Anomalies: (1) cornerRadius 8 is hardcoded although a radius/button (8) token exists in the file. (2) Label typography is inline (Inter Medium 15/20, no text style) although typography/button/label/* tokens exist; letterSpacing was not captured by the extraction. (3) The 16 glyph box with 20 gap is a wide icon-label gap relative to the 15 label size; confirm this is intentional. No multi-mode variable collections (density/shape) exist. The primitive and semantic collections have one mode each. Known gaps: the plugin skipped the Phase I variant walk for the Button set (cross-product 48 exceeds cap 20), and the Figma MCP was unavailable for a delta. As a result, all xs, sm, lg, icon, icon-xs, icon-sm and icon-lg columns in the Button section are — (not measured), and the Variant axis (outline, ghost, destructive, secondary, link) was not measured. The file defines size-specific tokens that are probably bound in those variants (size/button/icon/{xs 28, sm 36, default 48, lg 56}, spacing/button/lg/padding-y 18, size/button/glyph/large 20, border-width/button/outline 1, typography/button/label/xs/line-height 16), but their bindings are unverified and were not used as values. Extraction warning: Phase I skipped \"Button\" sub-component variant walk (48 combos > cap 20).",
+    "sections": [
+      {
+        "_anchor": {
+          "_targetDisposition": "resolved",
+          "layerId": "46:2193",
+          "layerName": "Button",
+          "sourceScope": "parent",
+          "variantId": "46:2193",
+          "variantName": "Button",
+          "variantProperties": {}
+        },
+        "columns": [
+          "Spec",
+          "Default",
+          "Notes"
+        ],
+        "preview": "One Button wrapper instance in its default configuration (Variant=default, Size=default, icons off).",
+        "rows": [
+          {
+            "_layerId": "46:2193",
+            "_layerName": "__root__",
+            "_targetDisposition": "resolved",
+            "_targetScope": "parent",
+            "_targetVariantId": "46:2193",
+            "_targetVariantName": "Button",
+            "_targetVariantProperties": {},
+            "notes": "Wrapper COMPONENT; hosts a single Button instance",
+            "provenance": "measured",
+            "spec": "Host container",
+            "values": [
+              "–"
+            ]
+          },
+          {
+            "isSubProperty": true,
+            "notes": "Single-child auto-layout row",
+            "provenance": "measured",
+            "spec": "layoutMode",
+            "values": [
+              "horizontal"
+            ]
+          },
+          {
+            "isSubProperty": true,
+            "notes": "Hugs the inner Button; measures 88 with the default \"Button\" label",
+            "provenance": "measured",
+            "spec": "widthMode",
+            "values": [
+              "hug"
+            ]
+          },
+          {
+            "isSubProperty": true,
+            "notes": "Hugs the inner Button; measures 48 at Size=default",
+            "provenance": "measured",
+            "spec": "heightMode",
+            "values": [
+              "hug"
+            ]
+          },
+          {
+            "isSubProperty": true,
+            "notes": "No inset: the wrapper adds no space around the inner Button",
+            "provenance": "measured",
+            "spec": "padding",
+            "values": [
+              "0"
+            ]
+          },
+          {
+            "isSubProperty": true,
+            "notes": "Only one child, so no gap applies",
+            "provenance": "measured",
+            "spec": "itemSpacing",
+            "values": [
+              "0"
+            ]
+          },
+          {
+            "isSubProperty": true,
+            "notes": "No wrapping; not used",
+            "provenance": "measured",
+            "spec": "counterAxisSpacing",
+            "values": [
+              "0"
+            ]
+          },
+          {
+            "isSubProperty": true,
+            "notes": "primaryAxisAlignItems=MIN; no visual effect while the wrapper hugs its only child",
+            "provenance": "measured",
+            "spec": "horizontalAlignment",
+            "values": [
+              "start"
+            ]
+          },
+          {
+            "isSubProperty": true,
+            "notes": "counterAxisAlignItems=MIN; no visual effect while hugging",
+            "provenance": "measured",
+            "spec": "verticalAlignment",
+            "values": [
+              "top"
+            ]
+          },
+          {
+            "isSubProperty": true,
+            "notes": "Shape comes from the inner Button (8), not the wrapper",
+            "provenance": "measured",
+            "spec": "cornerRadius",
+            "values": [
+              "0"
+            ]
+          },
+          {
+            "isSubProperty": true,
+            "notes": "strokeWeight 1 (inside) is configured but no stroke paint is applied, so there is no visible border",
+            "provenance": "measured",
+            "spec": "borderWidth",
+            "values": [
+              "none"
+            ]
+          },
+          {
+            "isLastInGroup": true,
+            "isSubProperty": true,
+            "notes": "Wrapper does not clip; the inner Button clips its own content",
+            "provenance": "measured",
+            "spec": "clipsContent",
+            "values": [
+              "false"
+            ]
+          },
+          {
+            "_layerId": "46:2187",
+            "_layerName": "Button",
+            "_targetDisposition": "resolved",
+            "_targetScope": "parent",
+            "_targetVariantId": "46:2193",
+            "_targetVariantName": "Button",
+            "_targetVariantProperties": {},
+            "notes": "Constitutive Button component-set instance (see Button section)",
+            "provenance": "measured",
+            "spec": "Button instance",
+            "values": [
+              "–"
+            ]
+          },
+          {
+            "isSubProperty": true,
+            "notes": "Embedded child variant (Variant=default)",
+            "provenance": "measured",
+            "spec": "variant",
+            "values": [
+              "default"
+            ]
+          },
+          {
+            "isSubProperty": true,
+            "notes": "Embedded child size (Size=default); drives all measured values",
+            "provenance": "measured",
+            "spec": "size",
+            "values": [
+              "default"
+            ]
+          },
+          {
+            "isSubProperty": true,
+            "notes": "Leading icon boolean is off by default",
+            "provenance": "measured",
+            "spec": "leadingIcon",
+            "values": [
+              "none"
+            ]
+          },
+          {
+            "isLastInGroup": true,
+            "isSubProperty": true,
+            "notes": "Trailing icon boolean is off by default",
+            "provenance": "measured",
+            "spec": "trailingIcon",
+            "values": [
+              "none"
+            ]
+          }
+        ],
+        "sectionDescription": "Button is a standalone wrapper COMPONENT around one constitutive instance of the Button component set (Variant × Size). The wrapper adds no padding, spacing, radius or visible border; all dimensions come from the embedded child, documented in the Button section.",
+        "sectionName": "Button composition",
+        "sectionType": "composition"
+      },
+      {
+        "_anchor": {
+          "_targetDisposition": "resolved",
+          "layerId": "46:2187",
+          "layerName": "Button",
+          "sourceScope": "parent-placement",
+          "subCompSetId": "54:1996",
+          "variantId": "46:2193",
+          "variantName": "Button",
+          "variantProperties": {}
+        },
+        "_dictionaryMismatch": {
+          "dictionary": null,
+          "kind": "value-extra",
+          "note": "Constitutive child instance of the Button set (54:1996). The API promotes its props to the parent, so dictionary.subComponents is empty.",
+          "observed": "Button"
+        },
+        "columns": [
+          "Spec",
+          "default",
+          "xs",
+          "sm",
+          "lg",
+          "icon",
+          "icon-xs",
+          "icon-sm",
+          "icon-lg",
+          "Notes"
+        ],
+        "preview": "Button set instances at each Size value (default, xs, sm, lg, icon, icon-xs, icon-sm, icon-lg) with both icons on.",
+        "rows": [
+          {
+            "_invalidLayerId": "46:2187",
+            "_layerId": null,
+            "_layerName": "Button",
+            "_targetDisposition": "unresolved",
+            "_targetReason": "Layer ID is not present in the declared sub-component variant walk.",
+            "_targetScope": "subcomponent",
+            "_targetSubCompSetId": "54:1996",
+            "_targetVariantId": "46:2193",
+            "_targetVariantName": "Button",
+            "_targetVariantProperties": {},
+            "notes": "Tap target and content row of the Button set",
+            "provenance": "measured",
+            "spec": "Container",
+            "values": [
+              "–",
+              "–",
+              "–",
+              "–",
+              "–",
+              "–",
+              "–",
+              "–"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Leading icon, label and trailing icon in one row. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "layoutMode",
+            "values": [
+              "horizontal",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Width follows label length; measures 88 with \"Button\". xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "widthMode",
+            "values": [
+              "hug",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Height comes from 14+20+14 (padding + line height) = 48. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "heightMode",
+            "values": [
+              "hug",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "With the 20 label line height this gives the 48 total height. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "verticalPadding",
+            "values": [
+              "spacing/button/padding-y (14)",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Symmetric inset from the container edges. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "horizontalPadding",
+            "values": [
+              "spacing/button/padding-x (20)",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Gap between icon and label; only visible when an icon is on. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "itemSpacing",
+            "values": [
+              "spacing/button/gap (20)",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Single row, no wrapping. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "counterAxisSpacing",
+            "values": [
+              "0",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Content centered when the button is wider than its content. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "horizontalAlignment",
+            "values": [
+              "center",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Icons and label centered on the row. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "verticalAlignment",
+            "values": [
+              "center",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Hardcoded 8; the file also has a radius/button (8) token that is not bound here. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "cornerRadius",
+            "values": [
+              "8",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "No border on Variant=default. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "borderWidth",
+            "values": [
+              "0",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isLastInGroup": true,
+            "isSubProperty": true,
+            "notes": "Clips content to the rounded container. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "clipsContent",
+            "values": [
+              "true",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "_invalidLayerId": "I46:2187;54:1733",
+            "_layerId": null,
+            "_layerName": "Leading icon",
+            "_targetDisposition": "unresolved",
+            "_targetReason": "Layer ID is not present in the declared sub-component variant walk.",
+            "_targetScope": "subcomponent",
+            "_targetSubCompSetId": "54:1996",
+            "_targetVariantId": "46:2193",
+            "_targetVariantName": "Button",
+            "_targetVariantProperties": {},
+            "notes": "Fixed icon box, hidden unless leadingIcon=icon; zero internal spacing",
+            "provenance": "measured",
+            "spec": "Leading icon",
+            "values": [
+              "–",
+              "–",
+              "–",
+              "–",
+              "–",
+              "–",
+              "–",
+              "–"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Fixed width from the glyph size token. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "width",
+            "values": [
+              "size/button/glyph/default (16)",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Square 1:1 icon box. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "height",
+            "values": [
+              "size/button/glyph/default (16)",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Glyph fills the box edge to edge. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "padding",
+            "values": [
+              "0",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Centers the glyph horizontally. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "horizontalAlignment",
+            "values": [
+              "center",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Centers the glyph vertically. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "verticalAlignment",
+            "values": [
+              "center",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Square box; no rounding. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "cornerRadius",
+            "values": [
+              "0",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "strokeWeight 1 is configured but unpainted, so the box has no visible border. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "borderWidth",
+            "values": [
+              "none",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Configured stroke alignment; only matters if a stroke paint is added. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "borderAlign",
+            "values": [
+              "inside",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isLastInGroup": true,
+            "isSubProperty": true,
+            "notes": "Clips glyph overflow to the 16 box. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "clipsContent",
+            "values": [
+              "true",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "_invalidLayerId": "I46:2187;54:1734",
+            "_layerId": null,
+            "_layerName": "Glyph",
+            "_targetDisposition": "unresolved",
+            "_targetReason": "Layer ID is not present in the declared sub-component variant walk.",
+            "_targetScope": "subcomponent",
+            "_targetSubCompSetId": "54:1996",
+            "_targetVariantId": "46:2193",
+            "_targetVariantName": "Button",
+            "_targetVariantProperties": {},
+            "notes": "Vector glyph inside the icon box",
+            "provenance": "measured",
+            "spec": "Leading icon glyph",
+            "values": [
+              "–",
+              "–",
+              "–",
+              "–",
+              "–",
+              "–",
+              "–",
+              "–"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Shares the icon-box token, so the glyph always fills the box. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "width",
+            "values": [
+              "size/button/glyph/default (16)",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Square glyph. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "height",
+            "values": [
+              "size/button/glyph/default (16)",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Painted outline stroke weight of the glyph. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "strokeWeight",
+            "values": [
+              "border-width/button/icon (1.5)",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isLastInGroup": true,
+            "isSubProperty": true,
+            "notes": "Stroke drawn inside the glyph bounds so it never exceeds 16. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "strokeAlign",
+            "values": [
+              "inside",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "_invalidLayerId": "I46:2187;54:1735",
+            "_layerId": null,
+            "_layerName": "Label",
+            "_targetDisposition": "unresolved",
+            "_targetReason": "Layer ID is not present in the declared sub-component variant walk.",
+            "_targetScope": "subcomponent",
+            "_targetSubCompSetId": "54:1996",
+            "_targetVariantId": "46:2193",
+            "_targetVariantName": "Button",
+            "_targetVariantProperties": {},
+            "notes": "Visible button text (label)",
+            "provenance": "measured",
+            "spec": "Label",
+            "values": [
+              "–",
+              "–",
+              "–",
+              "–",
+              "–",
+              "–",
+              "–",
+              "–"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Grows with text; measures 48 for \"Button\". xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "widthMode",
+            "values": [
+              "hug",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Height comes from the 20 line height. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "heightMode",
+            "values": [
+              "hug",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Inline font family; no text style is bound. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "fontFamily",
+            "values": [
+              "Inter",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Inline weight. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "fontWeight",
+            "values": [
+              "Medium",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Inline size. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "fontSize",
+            "values": [
+              "15",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isLastInGroup": true,
+            "isSubProperty": true,
+            "notes": "Inline line height; sets the content height. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "lineHeight",
+            "values": [
+              "20",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "_invalidLayerId": "I46:2187;54:1736",
+            "_layerId": null,
+            "_layerName": "Trailing icon",
+            "_targetDisposition": "unresolved",
+            "_targetReason": "Layer ID is not present in the declared sub-component variant walk.",
+            "_targetScope": "subcomponent",
+            "_targetSubCompSetId": "54:1996",
+            "_targetVariantId": "46:2193",
+            "_targetVariantName": "Button",
+            "_targetVariantProperties": {},
+            "notes": "Fixed icon box, hidden unless trailingIcon=icon; zero internal spacing",
+            "provenance": "measured",
+            "spec": "Trailing icon",
+            "values": [
+              "–",
+              "–",
+              "–",
+              "–",
+              "–",
+              "–",
+              "–",
+              "–"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Fixed width from the glyph size token. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "width",
+            "values": [
+              "size/button/glyph/default (16)",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Square 1:1 icon box. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "height",
+            "values": [
+              "size/button/glyph/default (16)",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Glyph fills the box edge to edge. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "padding",
+            "values": [
+              "0",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Centers the glyph horizontally. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "horizontalAlignment",
+            "values": [
+              "center",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Centers the glyph vertically. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "verticalAlignment",
+            "values": [
+              "center",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Square box; no rounding. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "cornerRadius",
+            "values": [
+              "0",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "strokeWeight 1 is configured but unpainted, so the box has no visible border. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "borderWidth",
+            "values": [
+              "none",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Configured stroke alignment; only matters if a stroke paint is added. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "borderAlign",
+            "values": [
+              "inside",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isLastInGroup": true,
+            "isSubProperty": true,
+            "notes": "Clips glyph overflow to the 16 box. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "clipsContent",
+            "values": [
+              "true",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "_invalidLayerId": "I46:2187;54:1737",
+            "_layerId": null,
+            "_layerName": "Glyph",
+            "_targetDisposition": "unresolved",
+            "_targetReason": "Layer ID is not present in the declared sub-component variant walk.",
+            "_targetScope": "subcomponent",
+            "_targetSubCompSetId": "54:1996",
+            "_targetVariantId": "46:2193",
+            "_targetVariantName": "Button",
+            "_targetVariantProperties": {},
+            "notes": "Vector glyph inside the icon box",
+            "provenance": "measured",
+            "spec": "Trailing icon glyph",
+            "values": [
+              "–",
+              "–",
+              "–",
+              "–",
+              "–",
+              "–",
+              "–",
+              "–"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Shares the icon-box token, so the glyph always fills the box. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "width",
+            "values": [
+              "size/button/glyph/default (16)",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Square glyph. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "height",
+            "values": [
+              "size/button/glyph/default (16)",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isSubProperty": true,
+            "notes": "Painted outline stroke weight of the glyph. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "strokeWeight",
+            "values": [
+              "border-width/button/icon (1.5)",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          },
+          {
+            "cellProvenance": [
+              "measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured",
+              "not-measured"
+            ],
+            "isLastInGroup": true,
+            "isSubProperty": true,
+            "notes": "Stroke drawn inside the glyph bounds so it never exceeds 16. xs–icon-lg not measured (cross-product 48 exceeds cap 20).",
+            "provenance": "measured",
+            "spec": "strokeAlign",
+            "values": [
+              "inside",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—",
+              "—"
+            ]
+          }
+        ],
+        "sectionDescription": "Internals of the embedded Button component-set instance. Columns follow the child's own Size axis. Only Size=default (with Variant=default) was measured. The plugin skipped the Phase I variant walk (cross-product 48 exceeds cap 20), so every other size column is —. Leading and trailing icon rows describe the hidden icon frames that appear when leadingIcon / trailingIcon = icon.",
+        "sectionName": "Button",
+        "sectionType": "subComponent",
+        "subCompSetId": "54:1996"
+      }
+    ]
+  },
+  "summary": {
+    "confidence": {
+      "api": "high",
+      "color": "medium",
+      "structure": "medium",
+      "voice": "medium"
+    },
+    "overview": "Button is a single-element wrapper around the Button component set: its whole API (variant, size, label, leadingIcon, trailingIcon) is the child's configuration promoted to the parent. The default configuration is a hugging horizontal row of 88×48 with 14/20 padding, a 20 gap and an 8 radius, laying out an optional leading icon, the label and an optional trailing icon; variant drives fill and text color, while size sets padding and height, with the icon* sizes producing square icon-only buttons. Every configuration is one focus stop with a button role whose accessible name comes from the label, and icon-only sizes need an explicit accessible name. Only the default variant and size were measured, so the other variants and sizes still need re-extraction to be fully specified."
+  },
+  "variants": {
+    "axes": [],
+    "default": {
+      "id": "46:2193",
+      "name": "Button",
+      "variantProperties": {}
+    }
+  }
+}
